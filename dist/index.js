@@ -74,16 +74,21 @@ function writeContent(filepath, options) {
                 console.log("Syntax Error: Do not add space after colon. Should be: `:<text>` instead of `: <text>`");
             }
             else {
+                console.log("Options Array String: ", options_array[1]);
                 const filePath = path.resolve(filepath, options_array[0]);
                 const prev_data = yield readContents(filePath);
-                console.log("Prev Data:", typeof (prev_data));
-                var new_data = prev_data + options_array[1];
-                // '/-' represents space and '-\\' represents a new line.
-                const space_string = new_data.replace('/-', ' ');
-                console.log("Space String: ", space_string);
-                const new_line_string = space_string.replace('-\\', "\n");
+                // '/-' represents space and '\\' represents a new line.
+                var space_string = options_array[1];
+                while (space_string.includes('/-')) {
+                    space_string = space_string.replace('/-', ' ');
+                }
+                while (space_string.includes('\\')) {
+                    space_string = space_string.replace('\\', '\n');
+                }
+                console.log("New Space String: ", space_string);
+                var new_data = prev_data + space_string;
                 try {
-                    fs.writeFileSync(filePath, new_line_string);
+                    fs.writeFileSync(filePath, new_data);
                     console.log(`Written to ${filePath} successfully`);
                 }
                 catch (err) {
