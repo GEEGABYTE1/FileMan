@@ -59,7 +59,7 @@ async function readContents(filepath: string) {
     }
 
   } catch (err) {
-    console.log("Error with Directory: ", err)
+    console.log("File not found: ", err)
   }
 }
 
