@@ -44,7 +44,7 @@ You can edit and write files within the directory of source code (the directory 
 /-
 
 # Example
-fileman -wr <filename>:/-This/-be/-a/-space
+fileman -wr <filename>:/-There/-will/-be/-a/-space/-between/-each/-word
 
 ```
 
@@ -67,4 +67,3 @@ fileman -h
 
 The doc will have all commands and their details within this CLI.
 
-    
