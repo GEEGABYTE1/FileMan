@@ -78,10 +78,10 @@ function writeContent(filepath, options) {
                 const prev_data = yield readContents(filePath);
                 console.log("Prev Data:", typeof (prev_data));
                 var new_data = prev_data + options_array[1];
-                // '//' represents space and '\\' represents a new line.
-                const space_string = new_data.replace('//', ' ');
+                // '/-' represents space and '-\\' represents a new line.
+                const space_string = new_data.replace('/-', ' ');
                 console.log("Space String: ", space_string);
-                const new_line_string = space_string.replace('\\', "\n");
+                const new_line_string = space_string.replace('-\\', "\n");
                 try {
                     fs.writeFileSync(filePath, new_line_string);
                     console.log(`Written to ${filePath} successfully`);
