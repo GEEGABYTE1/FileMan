@@ -13,6 +13,8 @@ const path = require('path')
 
 const program = new Command()
 console.log(figlet.textSync("FileMan"));
+console.log("--------------")
+console.log("Made by: Jaival Patel")
 
 program
   .version("1.0.0")
@@ -20,8 +22,8 @@ program
   .option("-l, --ls  [value]", "List directory contents")
   .option("-m, --mkdir <value>", "Create a directory")
   .option("-t, --touch <value>", "Create a file")
-  .option("-r, --read <filename>, Read a file within a directory")
-  .option("-wr, --write <filename>:[text], Write to a file within a directory")
+  .option("-r, --read <filename>", "Read a file within a directory")
+  .option("-wr, --write <filename>:[text]", "Write to a file within a directory")
   .parse(process.argv);
 
   const options = program.opts();
