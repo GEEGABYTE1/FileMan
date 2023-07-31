@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -8,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+const { Command } = require('commander');
 const figlet = require("figlet");
 const fs = require('fs');
 const path = require('path');
-const { Command } = require('commander');
 const program = new Command();
 console.log(figlet.textSync("FileMan"));
 program
@@ -29,7 +30,6 @@ function listDirContents(filepath) {
             console.log("Files: ", files);
             const detailedFilesPromises = files.map((file) => __awaiter(this, void 0, void 0, function* () {
                 let fileDetails = yield fs.promises.lstat(path.resolve(filepath, file));
-                console.log("File Details: ", fileDetails);
                 const { size, birthtime } = fileDetails;
                 return { filename: file, "size(KB)": size, created_at: birthtime };
             }));
@@ -60,5 +60,8 @@ if (options.mkdir) {
 }
 if (options.touch) {
     createFile(path.resolve(__dirname, options.touch));
+}
+if (!process.argv.slice(2).length) {
+    program.outputHelp();
 }
 //# sourceMappingURL=index.js.map

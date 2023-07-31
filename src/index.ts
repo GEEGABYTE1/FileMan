@@ -1,7 +1,11 @@
+#! /usr/bin/env node
+const {Command} = require('commander')
+
+
 const figlet = require("figlet");
 const fs = require('fs')
 const path = require('path')
-const {Command} = require('commander')
+
 
 
 const program = new Command()
@@ -64,9 +68,9 @@ if (options.touch) {
   createFile(path.resolve(__dirname, options.touch))
 }
 
-
-
-
+if (!process.argv.slice(2).length) {
+  program.outputHelp()
+}
 
 
 
