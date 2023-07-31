@@ -2,6 +2,12 @@
 
 A CLI to navigate your file directory.
 
+# Download
+You can download the cli with node.js: 
+```
+npm i j-fileman
+```
+
 # Commands
 All commands start with the root command:
 ```
