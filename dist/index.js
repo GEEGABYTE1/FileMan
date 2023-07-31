@@ -21,6 +21,7 @@ program
     .option("-l, --ls  [value]", "List directory contents")
     .option("-m, --mkdir <value>", "Create a directory")
     .option("-t, --touch <value>", "Create a file")
+    .option("-r, --read <filename>, Read a file within a directory")
     .parse(process.argv);
 const options = program.opts();
 function listDirContents(filepath) {
@@ -38,6 +39,27 @@ function listDirContents(filepath) {
         }
         catch (err) {
             console.log("Error Occured while reading the directory: ", err);
+        }
+    });
+}
+function readContents(filepath) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            console.log("File Path: ", filepath);
+            try {
+                const data = fs.readFileSync(filepath, 'utf8');
+                console.log("Reading File: ", filepath);
+                console.log('-------------------------------------------------------');
+                console.log(data);
+                console.log('-------------------------------------------------------');
+            }
+            catch (err) {
+                console.log("Cannot Read File in Path: ", filepath);
+                console.log(err);
+            }
+        }
+        catch (err) {
+            console.log("Error with Directory: ", err);
         }
     });
 }
@@ -60,6 +82,10 @@ if (options.mkdir) {
 }
 if (options.touch) {
     createFile(path.resolve(__dirname, options.touch));
+}
+if (options.read) {
+    const filePath = typeof options.ls === 'string' ? options.ls : __dirname;
+    readContents(path.resolve(filePath, options.read));
 }
 if (!process.argv.slice(2).length) {
     program.outputHelp();
