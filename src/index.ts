@@ -1,4 +1,7 @@
 #! /usr/bin/env node
+
+import { read } from "fs";
+
 const {Command} = require('commander')
 
 
@@ -54,6 +57,7 @@ async function readContents(filepath: string) {
       console.log('-------------------------------------------------------')
       console.log(data)
       console.log('-------------------------------------------------------')
+      return data
     } catch (err) {
       console.log("Cannot Read File in Path: ", filepath)
       console.log(err)
@@ -68,11 +72,21 @@ async function writeContent(filepath: string, options: string) {
   try {
     const options_array: string[] = options.split(':')
     if (options_array[1] === '' || options_array[1] === 'undefined') {
-      console.log("Syntax Error")
+      console.log("Syntax Error: Do not add space after colon. Should be: `:<text>` instead of `: <text>`")
     } else {
       const filePath = path.resolve(filepath, options_array[0])
+      const prev_data = await readContents(filePath)
+      console.log("Prev Data:" , typeof(prev_data))
+      var new_data: string = prev_data +  options_array[1]
+      // '//' represents space and '\\' represents a new line.
+      const space_string = new_data.replace('//', ' ')
+      console.log("Space String: ", space_string)
+      const new_line_string = space_string.replace('\\', "\n")
+
+      
+          
       try {
-        fs.writeFileSync(filePath, options_array[1])
+        fs.writeFileSync(filePath, new_line_string)
         console.log(`Written to ${filePath} successfully`)
       }  catch (err) {
         console.log("Error while writing file: ", err)
