@@ -11,9 +11,11 @@
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["cli", "filemanager", "npmtool"],
+  "author": "Jaival Patel",
+  "license": "MIT",
+  "repository": "https://github.com/GEEGABYTE1/FileMan",
+  "homepage": "https://github.com/GEEGABYTE1",
   "dependencies": {
     "commander": "^11.0.0",
     "figlet": "^1.6.0"
