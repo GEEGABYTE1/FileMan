@@ -22,6 +22,7 @@ program
     .option("-m, --mkdir <value>", "Create a directory")
     .option("-t, --touch <value>", "Create a file")
     .option("-r, --read <filename>, Read a file within a directory")
+    .option("-wr, --write <filename>:[text], Write to a file within a directory")
     .parse(process.argv);
 const options = program.opts();
 function listDirContents(filepath) {
@@ -59,7 +60,30 @@ function readContents(filepath) {
             }
         }
         catch (err) {
-            console.log("Error with Directory: ", err);
+            console.log("File not found: ", err);
+        }
+    });
+}
+function writeContent(filepath, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const options_array = options.split(':');
+            if (options_array[1] === '' || options_array[1] === 'undefined') {
+                console.log("Syntax Error");
+            }
+            else {
+                const filePath = path.resolve(filepath, options_array[0]);
+                try {
+                    fs.writeFileSync(filePath, options_array[1]);
+                    console.log(`Written to ${filePath} successfully`);
+                }
+                catch (err) {
+                    console.log("Error while writing file: ", err);
+                }
+            }
+        }
+        catch (err) {
+            console.log("Directory Err: ", err);
         }
     });
 }
@@ -86,6 +110,11 @@ if (options.touch) {
 if (options.read) {
     const filePath = typeof options.ls === 'string' ? options.ls : __dirname;
     readContents(path.resolve(filePath, options.read));
+}
+if (options.write) {
+    const filePath = typeof options.ls === 'string' ? options.ls : __dirname;
+    console.log("Options.write: ", options.write);
+    writeContent(filePath, options.write);
 }
 if (!process.argv.slice(2).length) {
     program.outputHelp();
