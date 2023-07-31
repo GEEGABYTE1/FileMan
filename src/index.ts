@@ -15,6 +15,15 @@ program
   .option("-t, --touch <value>", "Create a file")
   .parse(process.argv);
 
+
+async function listDirContents(filepath: string) {
+  try {
+
+  } catch (err) {
+    console.log("Error Occured while reading the directory: ", err)
+  }
+}
+
 const options = program.opts();
 
 
